@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - 選擇搜尋</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css'><link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container main my-5">
+    <div class="row">
+      <main class="col post">
+        <div id="app" class="mt-2">
+          <div class="row h-100">
+            <div class="col-md-3 h-100 d-flex flex-column">
+              <div class="form-floating mb-2">
+                <input type="text" class="form-control" id="search" placeholder="search" v-model="search">
+                <label for="search">search</label>
+              </div>
+              <div class="list-group option">
+                <label class="list-group-item" :class="{'text-success':item.Name===datastore.Name}"  v-for="(item,i) in filterData" :key="item.Name">
+                  <input class="form-check-input me-1" type="radio" name="area" :value="item" v-model="datastore">
+                  {{ item.Name }}
+                </label>
+              </div>
+            </div>
+            <div class="col-md-8 h-100 d-flex flex-column">
+              <div class="form-floating">
+                <select @change="change" id="cacheArea" class="form-select w-50 mb-2" aria-label="select example" v-model="changeDatastore">
+                  <option selected value="" disabled>瀏覽紀錄</option>
+                  <option  v-for="(item, index) in caches" :key="index" :value="item">{{ item.Name }}</option>
+                </select>
+                <label for="cacheArea">瀏覽紀錄</label>
+              </div>
+              <div class="card overflow-auto">
+                <img :src="datastore.Picture1" class="card-img-top" :alt="datastore.Name">
+                <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                        :src="`https://maps.google.com.tw/maps?f=q&hl=zh-TW&geocode=&q=${datastore.Py},${datastore.Px}(${datastore.Name})&z=16&output=embed`"></iframe>
+                <div class="card-body">
+                  <h5 class="card-title">{{ datastore.Name }}</h5>
+                  <p>{{ datastore.Description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.prod.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>

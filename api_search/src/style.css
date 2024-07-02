@@ -1,0 +1,6 @@
+    #app {
+      height: 600px;
+    }
+    .option {
+      overflow-y: auto;
+    }
